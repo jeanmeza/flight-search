@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
@@ -24,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jeanmeza.flightsearch.R
 import com.jeanmeza.flightsearch.data.FavouriteWithAirports
 import com.jeanmeza.flightsearch.data.FavouriteWithAirportsData
@@ -43,7 +45,15 @@ fun FavouriteCard(
     favourite: FavouriteWithAirports,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(
+            topStart = 0.dp,
+            topEnd = 8.dp,
+            bottomStart = 0.dp,
+            bottomEnd = 0.dp
+        )
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -106,7 +116,7 @@ fun AirportInfo(
     }
 }
 
-@Preview(apiLevel = 36, showBackground = true)
+@Preview(apiLevel = 36)
 @Composable
 fun FavouriteCardPreview() {
     FlightSearchTheme {
