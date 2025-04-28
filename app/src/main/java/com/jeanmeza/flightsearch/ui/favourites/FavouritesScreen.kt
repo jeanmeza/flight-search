@@ -26,14 +26,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jeanmeza.flightsearch.R
 import com.jeanmeza.flightsearch.data.FavouriteWithAirports
 import com.jeanmeza.flightsearch.data.FavouriteWithAirportsData
 import com.jeanmeza.flightsearch.model.airport.Airport
+import com.jeanmeza.flightsearch.ui.AppViewModelProvider
+import com.jeanmeza.flightsearch.ui.navigation.NavigationDestination
 import com.jeanmeza.flightsearch.ui.theme.FlightSearchTheme
 
+object FavouritesDestination : NavigationDestination {
+    override val route = "favourites"
+}
+
 @Composable
-fun FavouritesScreen(modifier: Modifier = Modifier) {
+fun FavouritesScreen(
+    modifier: Modifier = Modifier,
+    viewModel: FavouritesViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
     Column(modifier = modifier) {
         Text(stringResource(R.string.favourite_routes))
 

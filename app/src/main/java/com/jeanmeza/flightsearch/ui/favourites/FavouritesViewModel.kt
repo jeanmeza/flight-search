@@ -22,7 +22,6 @@ class FavouritesViewModel(private val favouriteRepository: FavouriteRepository) 
                 initialValue = FavouritesUiState(),
             )
 
-
 }
 
 data class FavouritesUiState(

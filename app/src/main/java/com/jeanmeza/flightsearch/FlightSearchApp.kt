@@ -9,16 +9,22 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.jeanmeza.flightsearch.ui.favourites.FavouritesScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.jeanmeza.flightsearch.ui.navigation.FlightSearchNavHost
 
 @Composable
-fun FlightSearchApp() {
+fun FlightSearchApp(
+    navController: NavHostController = rememberNavController()
+) {
     Scaffold(
-        topBar = { FlightSearchTopAppBar() }
+        topBar = {
+            FlightSearchTopAppBar()
+            // TODO: add search bar here
+        }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            // TODO: add search bar here
-            FavouritesScreen()
+            FlightSearchNavHost(navController)
         }
     }
 }
@@ -34,3 +40,4 @@ fun FlightSearchTopAppBar(
         scrollBehavior = scrollBehavior,
     )
 }
+
