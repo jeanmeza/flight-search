@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-class AirportViewModel(
+class FlightsViewModel(
     savedStateHandle: SavedStateHandle,
     private val airportRepository: AirportRepository,
     private val favoriteRepository: FavoriteRepository,
@@ -26,7 +26,7 @@ class AirportViewModel(
     private val relatedAirportsFlow = airportRepository.getAllAirportsExcept(airportId)
     private val favoriteFlow = favoriteRepository.getAllFavoritesStream()
 
-    val uiState: StateFlow<AirportUiState> =
+    val uiState: StateFlow<FlightsUiState> =
         combine(
             airportFlow,
             relatedAirportsFlow,
@@ -40,14 +40,14 @@ class AirportViewModel(
                 }
                 AirportWithFavorite(destination, favorite)
             }
-            AirportUiState(
+            FlightsUiState(
                 airport = airport,
                 destinations = destWithFavorites
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-            initialValue = AirportUiState(),
+            initialValue = FlightsUiState(),
         )
 
     suspend fun favoriteItem(iata_dep: String, iata_dest: String) {
@@ -64,7 +64,7 @@ class AirportViewModel(
     }
 }
 
-data class AirportUiState(
+data class FlightsUiState(
     val airport: Airport? = null,
     val destinations: List<AirportWithFavorite> = emptyList()
 )

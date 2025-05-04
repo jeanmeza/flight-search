@@ -29,9 +29,9 @@ object AirportDestination : NavigationDestination {
 }
 
 @Composable
-fun AirportScreen(
+fun FlightsScreen(
     modifier: Modifier = Modifier,
-    viewModel: AirportViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    viewModel: FlightsViewModel = viewModel(factory = AppViewModelProvider.Factory),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val airportName = if (uiState.airport == null) "" else uiState.airport!!.iataCode

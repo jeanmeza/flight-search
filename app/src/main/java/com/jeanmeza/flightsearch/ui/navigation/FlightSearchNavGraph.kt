@@ -12,7 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.jeanmeza.flightsearch.R
 import com.jeanmeza.flightsearch.ui.airport.AirportDestination
-import com.jeanmeza.flightsearch.ui.airport.AirportScreen
+import com.jeanmeza.flightsearch.ui.airport.FlightsScreen
 import com.jeanmeza.flightsearch.ui.favorites.FavoritesDestination
 import com.jeanmeza.flightsearch.ui.favorites.FavoritesScreen
 
@@ -37,7 +37,7 @@ fun FlightSearchNavHost(
                 type = NavType.IntType
             })
         ) {
-            AirportScreen(
+            FlightsScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(dimensionResource(R.dimen.padding_small))

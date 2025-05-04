@@ -6,7 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.jeanmeza.flightsearch.FlightSearchApplication
-import com.jeanmeza.flightsearch.ui.airport.AirportViewModel
+import com.jeanmeza.flightsearch.ui.airport.FlightsViewModel
 import com.jeanmeza.flightsearch.ui.favorites.FavoritesViewModel
 
 object AppViewModelProvider {
@@ -22,7 +22,7 @@ object AppViewModelProvider {
             )
         }
         initializer {
-            AirportViewModel(
+            FlightsViewModel(
                 savedStateHandle = this.createSavedStateHandle(),
                 airportRepository = flightSearchApplication().container.airportRepository,
                 favoriteRepository = flightSearchApplication().container.favoriteRepository,
