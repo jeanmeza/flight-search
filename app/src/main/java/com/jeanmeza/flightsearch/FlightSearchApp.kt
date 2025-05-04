@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SearchBar
@@ -91,7 +93,13 @@ fun FlightSearchBar(
                 expanded = expanded,
                 onExpandedChange = { expanded = it },
                 placeholder = { Text("Enter departure airport") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                leadingIcon = {
+                    if (expanded) {
+                        CancelSearchIcon(onClick = { expanded = false })
+                    } else {
+                        Icon(Icons.Default.Search, contentDescription = null)
+                    }
+                },
             )
         },
         modifier = modifier.padding(horizontal = horizontalPadding),
@@ -119,6 +127,22 @@ fun FlightSearchBar(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun CancelSearchIcon(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    IconButton(
+        onClick = onClick,
+        modifier = modifier,
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+            contentDescription = null,
+        )
     }
 }
 
