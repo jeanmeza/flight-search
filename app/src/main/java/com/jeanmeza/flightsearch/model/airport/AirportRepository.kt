@@ -7,7 +7,7 @@ interface AirportRepository {
 
     fun getAirportStream(id: Int): Flow<Airport?>
 
-    suspend fun getAllAirportsExcept(id: Int): List<Airport>
+    fun getAllAirportsExcept(id: Int): Flow<List<Airport>>
 
     suspend fun searchAirport(query: String): List<Airport>
 

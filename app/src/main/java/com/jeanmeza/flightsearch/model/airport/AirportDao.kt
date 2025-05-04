@@ -17,7 +17,7 @@ interface AirportDao {
     fun getAirport(id: Int): Flow<Airport>
 
     @Query("SELECT * FROM airport WHERE id <> :id")
-    suspend fun getAllAirportsExcept(id: Int): List<Airport>
+    fun getAllAirportsExcept(id: Int): Flow<List<Airport>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(airport: Airport)

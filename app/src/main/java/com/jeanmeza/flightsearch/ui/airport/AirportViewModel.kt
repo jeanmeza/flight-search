@@ -10,7 +10,6 @@ import com.jeanmeza.flightsearch.model.favorite.FavoriteRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 
 class AirportViewModel(
@@ -24,9 +23,7 @@ class AirportViewModel(
 
     private val airportId: Int = checkNotNull(savedStateHandle[AirportDestination.AIRPORT_ID_ARG])
     private val airportFlow = airportRepository.getAirportStream(airportId)
-    private val relatedAirportsFlow = flow {
-        emit(airportRepository.getAllAirportsExcept(airportId))
-    }
+    private val relatedAirportsFlow = airportRepository.getAllAirportsExcept(airportId)
 
     val uiState: StateFlow<AirportUiState> =
         combine(airportFlow, relatedAirportsFlow) { airport, otherAirports ->
