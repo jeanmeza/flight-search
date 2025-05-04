@@ -40,7 +40,10 @@ fun FlightSearchNavHost(
             FlightsScreen(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(dimensionResource(R.dimen.padding_small))
+                    .padding(dimensionResource(R.dimen.padding_small)),
+                onBack = {
+                    navController.popBackStack(FavoritesDestination.route, inclusive = false)
+                }
             )
         }
     }

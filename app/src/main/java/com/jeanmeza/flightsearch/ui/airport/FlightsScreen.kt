@@ -1,5 +1,6 @@
 package com.jeanmeza.flightsearch.ui.airport
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -32,10 +33,14 @@ object AirportDestination : NavigationDestination {
 fun FlightsScreen(
     modifier: Modifier = Modifier,
     viewModel: FlightsViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val airportName = if (uiState.airport == null) "" else uiState.airport!!.iataCode
     val coroutineScope = rememberCoroutineScope()
+    BackHandler {
+        onBack()
+    }
 
     Column(
         modifier = modifier,
