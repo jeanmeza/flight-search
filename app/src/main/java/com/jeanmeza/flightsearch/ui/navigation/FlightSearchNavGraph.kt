@@ -1,5 +1,6 @@
 package com.jeanmeza.flightsearch.ui.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +28,7 @@ fun FlightSearchNavHost(
     ) {
         composable(route = FavoritesDestination.route) {
             FavoritesScreen(
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_small))
             )
         }
         composable(
@@ -37,7 +38,9 @@ fun FlightSearchNavHost(
             })
         ) {
             AirportScreen(
-                modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(dimensionResource(R.dimen.padding_small))
             )
         }
     }

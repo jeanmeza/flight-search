@@ -7,6 +7,9 @@ class OfflineAirportRepository(private val airportDao: AirportDao) : AirportRepo
 
     override fun getAirportStream(id: Int): Flow<Airport?> = airportDao.getAirport(id)
 
+    override suspend fun getAllAirportsExcept(id: Int): List<Airport> =
+        airportDao.getAllAirportsExcept(id)
+
     override suspend fun searchAirport(query: String): List<Airport> =
         airportDao.searchAirport(query)
 

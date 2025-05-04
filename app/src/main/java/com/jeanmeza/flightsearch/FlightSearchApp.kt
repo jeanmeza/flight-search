@@ -38,6 +38,7 @@ import androidx.navigation.compose.rememberNavController
 import com.jeanmeza.flightsearch.model.airport.Airport
 import com.jeanmeza.flightsearch.ui.AppViewModelProvider
 import com.jeanmeza.flightsearch.ui.SearchBarViewModel
+import com.jeanmeza.flightsearch.ui.airport.AirportDestination
 import com.jeanmeza.flightsearch.ui.navigation.FlightSearchNavHost
 import com.jeanmeza.flightsearch.ui.theme.FlightSearchTheme
 
@@ -54,6 +55,9 @@ fun FlightSearchApp(
                 airportList = searchBarUiState.value.result,
                 onQueryChange = viewModel::searchAirports,
                 onSearch = viewModel::searchAirports,
+                onAirportSelect = {
+                    navController.navigate("${AirportDestination.route}/${it.id}")
+                },
             )
         }
     ) { innerPadding ->
@@ -69,6 +73,7 @@ fun FlightSearchBar(
     airportList: List<Airport> = emptyList(),
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit,
+    onAirportSelect: (Airport) -> Unit,
 ) {
     var query by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
@@ -108,6 +113,7 @@ fun FlightSearchBar(
                         airport = it,
                         onClick = {
                             expanded = false
+                            onAirportSelect(it)
                         },
                     )
                 }
@@ -120,10 +126,12 @@ fun FlightSearchBar(
 fun AirportItem(
     modifier: Modifier = Modifier,
     airport: Airport,
-    onClick: () -> Unit,
+    onClick: (Airport) -> Unit,
 ) {
     Card(
-        onClick = onClick,
+        onClick = {
+            onClick(airport)
+        },
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight(),
@@ -159,6 +167,7 @@ fun FlightSearchBarPreview() {
                         airportList = airportList,
                         onQueryChange = {},
                         onSearch = {},
+                        onAirportSelect = {},
                     )
                 }
             }
