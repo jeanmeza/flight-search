@@ -3,6 +3,7 @@ package com.jeanmeza.flightsearch.ui.favorites
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jeanmeza.flightsearch.data.FavoriteWithAirports
+import com.jeanmeza.flightsearch.model.favorite.Favorite
 import com.jeanmeza.flightsearch.model.favorite.FavoriteRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -22,6 +23,9 @@ class FavoritesViewModel(private val favoriteRepository: FavoriteRepository) : V
                 initialValue = FavoritesUiState(),
             )
 
+    suspend fun removeFavorite(favorite: Favorite) {
+        favoriteRepository.deleteFavourite(favorite)
+    }
 }
 
 data class FavoritesUiState(

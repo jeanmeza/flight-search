@@ -20,19 +20,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import com.jeanmeza.flightsearch.R
 import com.jeanmeza.flightsearch.model.airport.Airport
+import com.jeanmeza.flightsearch.model.favorite.Favorite
 
 @Composable
 fun FlightInfoCard(
+    modifier: Modifier = Modifier,
+    favourite: Favorite? = null,
     departure: Airport,
     destination: Airport,
-    modifier: Modifier = Modifier
+    onAddFavorite: (iata_dep: String, iata_dest: String) -> Unit,
+    onRemoveFavorite: (favorite: Favorite) -> Unit,
 ) {
+    val color = if (favourite != null) Color.hsl(30f, .99f, .29f) else Color.Gray
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(
@@ -60,11 +66,18 @@ fun FlightInfoCard(
                 )
             }
             IconButton(
-                onClick = {},
+                onClick = {
+                    if (favourite == null) {
+                        onAddFavorite(departure.iataCode, destination.iataCode)
+                    } else {
+                        onRemoveFavorite(favourite)
+                    }
+                },
                 modifier = Modifier.align(Alignment.CenterVertically),
             ) {
                 Icon(
                     imageVector = Icons.Filled.Star,
+                    tint = color,
                     contentDescription = stringResource(R.string.add_to_favorites)
                 )
             }

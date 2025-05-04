@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -19,6 +20,7 @@ import com.jeanmeza.flightsearch.R
 import com.jeanmeza.flightsearch.ui.AppViewModelProvider
 import com.jeanmeza.flightsearch.ui.components.FlightInfoCard
 import com.jeanmeza.flightsearch.ui.navigation.NavigationDestination
+import kotlinx.coroutines.launch
 
 object AirportDestination : NavigationDestination {
     override val route: String = "airport"
@@ -33,6 +35,7 @@ fun AirportScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val airportName = if (uiState.airport == null) "" else uiState.airport!!.iataCode
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = modifier,
@@ -50,6 +53,16 @@ fun AirportScreen(
                 FlightInfoCard(
                     departure = uiState.airport!!,
                     destination = destination,
+                    onAddFavorite = { dep, dest ->
+                        coroutineScope.launch {
+                            viewModel.favoriteItem(dep, dest)
+                        }
+                    },
+                    onRemoveFavorite = {
+                        coroutineScope.launch {
+                            viewModel.removeFavorite(it)
+                        }
+                    },
                 )
             }
         }

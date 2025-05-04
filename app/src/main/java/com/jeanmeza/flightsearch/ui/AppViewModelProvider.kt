@@ -23,8 +23,9 @@ object AppViewModelProvider {
         }
         initializer {
             AirportViewModel(
-                this.createSavedStateHandle(),
-                flightSearchApplication().container.airportRepository,
+                savedStateHandle = this.createSavedStateHandle(),
+                airportRepository = flightSearchApplication().container.airportRepository,
+                favoriteRepository = flightSearchApplication().container.favoriteRepository,
             )
         }
     }
