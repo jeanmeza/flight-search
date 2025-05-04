@@ -1,11 +1,11 @@
-package com.jeanmeza.flightsearch.model.favourite
+package com.jeanmeza.flightsearch.model.favorite
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favourites")
-data class Favourite(
+@Entity(tableName = "favorite")
+data class Favorite(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "departure_code")

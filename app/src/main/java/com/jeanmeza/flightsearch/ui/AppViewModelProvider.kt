@@ -5,19 +5,18 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.jeanmeza.flightsearch.FlightSearchApplication
-import com.jeanmeza.flightsearch.ui.favourites.FavouritesViewModel
+import com.jeanmeza.flightsearch.ui.favorites.FavoritesViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
-            AppViewModel(
+            SearchBarViewModel(
                 airportRepository = flightSearchApplication().container.airportRepository,
-                favouriteRepository = flightSearchApplication().container.favouriteRepository,
             )
         }
         initializer {
-            FavouritesViewModel(
-                favouriteRepository = flightSearchApplication().container.favouriteRepository,
+            FavoritesViewModel(
+                favoriteRepository = flightSearchApplication().container.favoriteRepository,
             )
         }
     }

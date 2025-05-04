@@ -6,13 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jeanmeza.flightsearch.model.airport.Airport
 import com.jeanmeza.flightsearch.model.airport.AirportDao
-import com.jeanmeza.flightsearch.model.favourite.Favourite
-import com.jeanmeza.flightsearch.model.favourite.FavouriteDao
+import com.jeanmeza.flightsearch.model.favorite.Favorite
+import com.jeanmeza.flightsearch.model.favorite.FavoriteDao
 
-@Database(entities = [Airport::class, Favourite::class], version = 1, exportSchema = false)
+@Database(entities = [Airport::class, Favorite::class], version = 1, exportSchema = false)
 abstract class FlightSearchDatabase : RoomDatabase() {
     abstract fun airportDao(): AirportDao
-    abstract fun favouriteDao(): FavouriteDao
+    abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         @Volatile
@@ -23,9 +23,10 @@ abstract class FlightSearchDatabase : RoomDatabase() {
                 Room.databaseBuilder(
                     context,
                     FlightSearchDatabase::class.java,
-                    "flight_search_database"
+                    "flight_search"
                 )
-                    .fallbackToDestructiveMigration(false)
+                    .createFromAsset("database/flight_search.db")
+                    .fallbackToDestructiveMigration(true)
                     .build()
                     .also { Instance = it }
             }

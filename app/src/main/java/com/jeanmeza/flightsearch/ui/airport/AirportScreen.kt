@@ -13,5 +13,5 @@ object AirportDestination : NavigationDestination {
 @Composable
 fun AirportScreen(modifier: Modifier = Modifier) {
     // TODO: add lazy column of cards
-    //  The AirportInfo card from used in the favourites screen can also be used here. Refactor.
+    //  The AirportInfo card from used in the
 }

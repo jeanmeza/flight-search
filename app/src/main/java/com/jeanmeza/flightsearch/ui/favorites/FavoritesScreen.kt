@@ -1,4 +1,4 @@
-package com.jeanmeza.flightsearch.ui.favourites
+package com.jeanmeza.flightsearch.ui.favorites
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -28,31 +28,31 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jeanmeza.flightsearch.R
-import com.jeanmeza.flightsearch.data.FavouriteWithAirports
-import com.jeanmeza.flightsearch.data.FavouriteWithAirportsData
+import com.jeanmeza.flightsearch.data.FavoriteWithAirports
+import com.jeanmeza.flightsearch.data.FavoriteWithAirportsData
 import com.jeanmeza.flightsearch.model.airport.Airport
 import com.jeanmeza.flightsearch.ui.AppViewModelProvider
 import com.jeanmeza.flightsearch.ui.navigation.NavigationDestination
 import com.jeanmeza.flightsearch.ui.theme.FlightSearchTheme
 
-object FavouritesDestination : NavigationDestination {
-    override val route = "favourites"
+object FavoritesDestination : NavigationDestination {
+    override val route = "favorites"
 }
 
 @Composable
-fun FavouritesScreen(
+fun FavoritesScreen(
     modifier: Modifier = Modifier,
-    viewModel: FavouritesViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: FavoritesViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     Column(modifier = modifier) {
-        Text(stringResource(R.string.favourite_routes))
+        Text(stringResource(R.string.favorite_routes))
 
     }
 }
 
 @Composable
-fun FavouriteCard(
-    favourite: FavouriteWithAirports,
+fun FavoriteCard(
+    favorite: FavoriteWithAirports,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -73,12 +73,12 @@ fun FavouriteCard(
             Column(modifier = Modifier.weight(1f)) {
                 AirportInfo(
                     title = R.string.depart,
-                    airport = favourite.departure,
+                    airport = favorite.departure,
                 )
                 Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_small)))
                 AirportInfo(
                     title = R.string.arrive,
-                    airport = favourite.destination,
+                    airport = favorite.destination,
                 )
             }
             IconButton(
@@ -87,7 +87,7 @@ fun FavouriteCard(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Star,
-                    contentDescription = stringResource(R.string.add_to_favourites)
+                    contentDescription = stringResource(R.string.add_to_favorites)
                 )
             }
         }
@@ -128,16 +128,16 @@ fun AirportInfo(
 
 @Preview(apiLevel = 36)
 @Composable
-fun FavouriteCardPreview() {
+fun FavoriteCardPreview() {
     FlightSearchTheme {
-        FavouriteCard(favourite = FavouriteWithAirportsData.favouritesList.get(0))
+        FavoriteCard(favorite = FavoriteWithAirportsData.favoritesList.get(0))
     }
 }
 
 @Preview(apiLevel = 36, showBackground = true, showSystemUi = true)
 @Composable
-fun FavouriteScreenPreview() {
+fun FavoriteScreenPreview() {
     FlightSearchTheme {
-        FavouritesScreen()
+        FavoritesScreen()
     }
 }

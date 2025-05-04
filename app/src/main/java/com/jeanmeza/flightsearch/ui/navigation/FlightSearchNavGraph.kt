@@ -12,8 +12,8 @@ import androidx.navigation.navArgument
 import com.jeanmeza.flightsearch.R
 import com.jeanmeza.flightsearch.ui.airport.AirportDestination
 import com.jeanmeza.flightsearch.ui.airport.AirportScreen
-import com.jeanmeza.flightsearch.ui.favourites.FavouritesDestination
-import com.jeanmeza.flightsearch.ui.favourites.FavouritesScreen
+import com.jeanmeza.flightsearch.ui.favorites.FavoritesDestination
+import com.jeanmeza.flightsearch.ui.favorites.FavoritesScreen
 
 @Composable
 fun FlightSearchNavHost(
@@ -22,11 +22,11 @@ fun FlightSearchNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = FavouritesDestination.route,
+        startDestination = FavoritesDestination.route,
         modifier = modifier,
     ) {
-        composable(route = FavouritesDestination.route) {
-            FavouritesScreen(
+        composable(route = FavoritesDestination.route) {
+            FavoritesScreen(
                 modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
             )
         }

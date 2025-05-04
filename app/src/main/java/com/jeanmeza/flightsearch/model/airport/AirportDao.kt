@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AirportDao {
-    @Query("SELECT * FROM airports ORDER BY name ASC")
+    @Query("SELECT * FROM airport ORDER BY name ASC")
     fun getAllAirports(): Flow<List<Airport>>
 
-    @Query("SELECT * FROM airports WHERE id = :id")
+    @Query("SELECT * FROM airport WHERE id = :id")
     fun getAirport(id: Int): Flow<Airport>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -24,4 +24,13 @@ interface AirportDao {
 
     @Delete
     suspend fun delete(airport: Airport)
+
+    @Query(
+        """
+        SELECT *
+        FROM airport
+        WHERE (name LIKE '%' || :query || '%' OR iata_code LIKE '%' || :query || '%')
+    """
+    )
+    fun searchAirport(query: String): List<Airport>
 }
