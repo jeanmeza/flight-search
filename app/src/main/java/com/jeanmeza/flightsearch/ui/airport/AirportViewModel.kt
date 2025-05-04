@@ -24,12 +24,25 @@ class AirportViewModel(
     private val airportId: Int = checkNotNull(savedStateHandle[AirportDestination.AIRPORT_ID_ARG])
     private val airportFlow = airportRepository.getAirportStream(airportId)
     private val relatedAirportsFlow = airportRepository.getAllAirportsExcept(airportId)
+    private val favoriteFlow = favoriteRepository.getAllFavoritesStream()
 
     val uiState: StateFlow<AirportUiState> =
-        combine(airportFlow, relatedAirportsFlow) { airport, otherAirports ->
+        combine(
+            airportFlow,
+            relatedAirportsFlow,
+            favoriteFlow
+        ) { airport, destinations, favorites ->
+            val departureCode = airport?.iataCode
+            val destWithFavorites = destinations.shuffled().take(5).map { destination ->
+                val favorite = favorites.find { favorite ->
+                    favorite.departureCode == departureCode
+                            && favorite.destinationCode == destination.iataCode
+                }
+                AirportWithFavorite(destination, favorite)
+            }
             AirportUiState(
                 airport = airport,
-                destinations = otherAirports.take(5)
+                destinations = destWithFavorites
             )
         }.stateIn(
             scope = viewModelScope,
@@ -53,5 +66,10 @@ class AirportViewModel(
 
 data class AirportUiState(
     val airport: Airport? = null,
-    val destinations: List<Airport> = emptyList()
+    val destinations: List<AirportWithFavorite> = emptyList()
+)
+
+data class AirportWithFavorite(
+    val airport: Airport,
+    val favorite: Favorite?,
 )

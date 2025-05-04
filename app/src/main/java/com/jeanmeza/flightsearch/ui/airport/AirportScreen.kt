@@ -49,18 +49,21 @@ fun AirportScreen(
             modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
-            items(items = uiState.destinations, key = { it.id }) { destination ->
+            items(items = uiState.destinations, key = { it.airport.id }) { destination ->
                 FlightInfoCard(
+                    favourite = destination.favorite,
                     departure = uiState.airport!!,
-                    destination = destination,
+                    destination = destination.airport,
                     onAddFavorite = { dep, dest ->
                         coroutineScope.launch {
                             viewModel.favoriteItem(dep, dest)
                         }
                     },
                     onRemoveFavorite = {
-                        coroutineScope.launch {
-                            viewModel.removeFavorite(it)
+                        if (destination.favorite != null) {
+                            coroutineScope.launch {
+                                viewModel.removeFavorite(destination.favorite)
+                            }
                         }
                     },
                 )
