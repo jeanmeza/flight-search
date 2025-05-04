@@ -2,7 +2,7 @@ package com.jeanmeza.flightsearch.ui.favorites
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jeanmeza.flightsearch.model.favorite.Favorite
+import com.jeanmeza.flightsearch.data.FavoriteWithAirports
 import com.jeanmeza.flightsearch.model.favorite.FavoriteRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ class FavoritesViewModel(private val favoriteRepository: FavoriteRepository) : V
     }
 
     val favoritesUiState: StateFlow<FavoritesUiState> =
-        favoriteRepository.getAllFavoritesStream().map { FavoritesUiState(it) }
+        favoriteRepository.getAllFavouritesWithAirports().map { FavoritesUiState(it) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
@@ -25,5 +25,5 @@ class FavoritesViewModel(private val favoriteRepository: FavoriteRepository) : V
 }
 
 data class FavoritesUiState(
-    val favoritesList: List<Favorite> = listOf()
+    val favoritesList: List<FavoriteWithAirports> = listOf()
 )
